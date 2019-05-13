@@ -1,0 +1,2 @@
+commons-logging用于整合其他日志框架
+BeanPostProcessor.postProcessAfterInitialization()使用后处理bean进行一些操作，如操作耗时、权限拦截

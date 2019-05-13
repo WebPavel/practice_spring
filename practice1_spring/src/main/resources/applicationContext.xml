@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="managerService" class="zv2.com.cn.service.impl.ManagerServiceImpl">
+        <property name="name" value="Rick"/>
+    </bean>
+    <!--默认使用无参构造来创建实例化对象,推荐使用-->
+    <!--<bean id="manager" class="zv2.com.cn.entity.usr.manager.Manager" scope="prototype">-->
+    <bean id="manager" class="zv2.com.cn.entity.usr.manager.Manager" init-method="setup" destroy-method="teardown">
+        <property name="username" value="admin"></property>
+        <property name="password" value="admin"></property>
+    </bean>
+    <!--使用静态工厂方式获取bean实例化对象-->
+    <!--<bean id="manager" class="zv2.com.cn.entity.usr.manager.ManagerFactory" factory-method="getManager"></bean>-->
+    <!--使用实例化工厂获取bean实例化对象-->
+    <!--<bean id="managerFactory" class="zv2.com.cn.entity.usr.manager.ManagerFactory"></bean>-->
+    <!--<bean id="manager" factory-bean="managerFactory" factory-method="manager"></bean>-->
+
+    <!--id和name属性区别：id遵守XMLid唯一约束要求-->
+    <!--scope类的作用域singleton、prototype、request、session-->
+
+    <bean id="account" class="zv2.com.cn.entity.biz.account.Account">
+        <constructor-arg name="id" type="java.lang.String" value="201905140207"/>
+        <constructor-arg name="deposit" value="10000.62"/>
+        <constructor-arg index="2" value="2019-05-14 2:08:14"/>
+        <constructor-arg index="3" type="java.lang.String" value="2019-05-14 2:08:52"/>
+    </bean>
+    <bean id="customerService" class="zv2.com.cn.service.impl.CustomerServiceImpl" init-method="setup" destroy-method="teardown">
+        <property name="username" value="Rick"/>
+    </bean>
+    <!--配置后处理bean，无须配置id-->
+    <bean class="zv2.com.cn.service.impl.CustomBeanPostProcessor"></bean>
+
+    <!--<bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer">-->
+        <!--<property name="id" value="20180514233"/>-->
+        <!--<property name="username" value="tom"/>-->
+        <!--<property name="nickname" value="little Tom"/>-->
+        <!--<property name="account" ref="account"/>-->
+    <!--</bean>-->
+    <!--名称空间p注入属性-->
+    <bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer" p:id="20180514233" p:username="tom" p:nickname="little Tom" p:account-ref="account">
+    </bean>
+</beans>
