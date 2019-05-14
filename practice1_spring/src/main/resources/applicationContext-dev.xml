@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--集合属性注入,包括list、set、map、properties和数组，数组同list一样处理-->
+    <bean id="chatroom" class="zv2.com.cn.entity.pub.chatroom.Chatroom">
+        <property name="id" value="5201314"></property>
+        <property name="name" value="冯提莫的房间"></property>
+        <property name="title" value="冯提莫陪你听歌"></property>
+        <property name="owner" value="冯提莫"></property>
+        <property name="tags">
+            <set>
+                <value>人美声甜</value>
+                <value>小仙女</value>
+            </set>
+        </property>
+    </bean>
+</beans>

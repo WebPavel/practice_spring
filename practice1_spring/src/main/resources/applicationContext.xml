@@ -1,47 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <bean id="managerService" class="zv2.com.cn.service.impl.ManagerServiceImpl">
-        <property name="name" value="Rick"/>
-    </bean>
-    <!--默认使用无参构造来创建实例化对象,推荐使用-->
-    <!--<bean id="manager" class="zv2.com.cn.entity.usr.manager.Manager" scope="prototype">-->
-    <bean id="manager" class="zv2.com.cn.entity.usr.manager.Manager" init-method="setup" destroy-method="teardown">
-        <property name="username" value="admin"></property>
-        <property name="password" value="admin"></property>
-    </bean>
-    <!--使用静态工厂方式获取bean实例化对象-->
-    <!--<bean id="manager" class="zv2.com.cn.entity.usr.manager.ManagerFactory" factory-method="getManager"></bean>-->
-    <!--使用实例化工厂获取bean实例化对象-->
-    <!--<bean id="managerFactory" class="zv2.com.cn.entity.usr.manager.ManagerFactory"></bean>-->
-    <!--<bean id="manager" factory-bean="managerFactory" factory-method="manager"></bean>-->
-
-    <!--id和name属性区别：id遵守XMLid唯一约束要求-->
-    <!--scope类的作用域singleton、prototype、request、session-->
-
-    <bean id="account" class="zv2.com.cn.entity.biz.account.Account">
-        <constructor-arg name="id" type="java.lang.String" value="201905140207"/>
-        <constructor-arg name="deposit" value="10000.62"/>
-        <constructor-arg index="2" value="2019-05-14 2:08:14"/>
-        <constructor-arg index="3" type="java.lang.String" value="2019-05-14 2:08:52"/>
-    </bean>
-    <bean id="customerService" class="zv2.com.cn.service.impl.CustomerServiceImpl" init-method="setup" destroy-method="teardown">
-        <property name="username" value="Rick"/>
-    </bean>
-    <!--配置后处理bean，无须配置id-->
-    <bean class="zv2.com.cn.service.impl.CustomBeanPostProcessor"></bean>
-
-    <!--<bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer">-->
-        <!--<property name="id" value="20180514233"/>-->
-        <!--<property name="username" value="tom"/>-->
-        <!--<property name="nickname" value="little Tom"/>-->
-        <!--<property name="account" ref="account"/>-->
-    <!--</bean>-->
-    <!--名称空间p注入属性-->
-    <bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer" p:id="20180514233" p:username="tom" p:nickname="little Tom" p:account-ref="account">
-    </bean>
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config></context:annotation-config>
+    <context:component-scan base-package="zv2.com.cn"></context:component-scan>
 </beans>
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+        <!--xmlns:p="http://www.springframework.org/schema/p"-->
+        <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+        <!--xsi:schemaLocation="-->
+        <!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+
+        <!--<bean id="managerService" class="zv2.com.cn.service.impl.ManagerServiceImpl">-->
+        <!--<property name="name" value="Rick"/>-->
+        <!--</bean>-->
+        <!--&lt;!&ndash;默认使用无参构造来创建实例化对象,推荐使用&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean id="manager" class="zv2.com.cn.entity.usr.manager.Manager" scope="prototype">&ndash;&gt;-->
+        <!--<bean id="manager" class="zv2.com.cn.entity.usr.manager.Manager" init-method="setup" destroy-method="teardown">-->
+        <!--<property name="username" value="admin"></property>-->
+        <!--<property name="password" value="admin"></property>-->
+        <!--</bean>-->
+        <!--&lt;!&ndash;使用静态工厂方式获取bean实例化对象&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean id="manager" class="zv2.com.cn.entity.usr.manager.ManagerFactory" factory-method="getManager"></bean>&ndash;&gt;-->
+        <!--&lt;!&ndash;使用实例化工厂获取bean实例化对象&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean id="managerFactory" class="zv2.com.cn.entity.usr.manager.ManagerFactory"></bean>&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean id="manager" factory-bean="managerFactory" factory-method="manager"></bean>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;id和name属性区别：id遵守XMLid唯一约束要求&ndash;&gt;-->
+        <!--&lt;!&ndash;scope类的作用域singleton、prototype、request、session&ndash;&gt;-->
+
+        <!--<bean id="account" class="zv2.com.cn.entity.biz.account.Account">-->
+        <!--<constructor-arg name="id" type="java.lang.String" value="201905140207"/>-->
+        <!--<constructor-arg name="deposit" value="10000.62"/>-->
+        <!--<constructor-arg index="2" value="2019-05-14 2:08:14"/>-->
+        <!--<constructor-arg index="3" type="java.lang.String" value="2019-05-14 2:08:52"/>-->
+        <!--</bean>-->
+        <!--<bean id="customerService" class="zv2.com.cn.service.impl.CustomerServiceImpl" init-method="setup" destroy-method="teardown">-->
+        <!--<property name="username" value="Rick"/>-->
+        <!--</bean>-->
+        <!--&lt;!&ndash;配置后处理bean，无须配置id&ndash;&gt;-->
+        <!--<bean class="zv2.com.cn.service.impl.CustomBeanPostProcessor"></bean>-->
+
+        <!--&lt;!&ndash;<bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer">&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="id" value="20180514233"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="username" value="tom"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="nickname" value="little Tom"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="account" ref="account"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+        <!--&lt;!&ndash;名称空间p注入属性&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer" p:id="20180514233" p:username="tom" p:nickname="little Tom" p:account-ref="account">&ndash;&gt;-->
+        <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+        <!--&lt;!&ndash;使用SpringEL注入属性&ndash;&gt;-->
+        <!--<bean id="instanceFactory" class="zv2.com.cn.utils.InstanceFactory">-->
+        <!--</bean>-->
+        <!--&lt;!&ndash;<bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer">&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="id" value="#{'u123457'}"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="username" value="#{manager.username}"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="nickname" value="#{'paulluis'}"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="password" value="#{'123456'}"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="account" value="#{account}"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+        <!--<bean id="customer" class="zv2.com.cn.entity.usr.customer.Customer">-->
+        <!--<property name="id" value="#{'u123457'}"></property>-->
+        <!--<property name="username" value="#{manager.username}"></property>-->
+        <!--<property name="nickname" value="#{T(zv2.com.cn.utils.InstanceFactory).defaultCharset()}"></property>-->
+        <!--<property name="password" value="#{'123456'}"></property>-->
+        <!--<property name="account" value="#{instanceFactory.account()}"></property>-->
+        <!--</bean>-->
+        <!--&lt;!&ndash;集合属性注入,包括list、set、map、properties和数组，数组同list一样处理&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean id="chatroom" class="zv2.com.cn.entity.pub.chatroom.Chatroom">&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="id" value="5201314"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="name" value="冯提莫的房间"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="title" value="冯提莫陪你听歌"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="owner" value="冯提莫"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="tags">&ndash;&gt;-->
+        <!--&lt;!&ndash;<set>&ndash;&gt;-->
+        <!--&lt;!&ndash;<value>人美声甜</value>&ndash;&gt;-->
+        <!--&lt;!&ndash;<value>小仙女</value>&ndash;&gt;-->
+        <!--&lt;!&ndash;</set>&ndash;&gt;-->
+        <!--&lt;!&ndash;</property>&ndash;&gt;-->
+        <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+        <!--<import resource="applicationContext-dev.xml"/>-->
+        <!--</beans>-->

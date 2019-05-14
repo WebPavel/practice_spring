@@ -6,7 +6,7 @@ package zv2.com.cn.entity.biz.account;
  */
 public class Account {
     private String id;
-    private String deposit;
+    private Double deposit;
     private String gmtCreate;
     private String gmtModified;
 
@@ -14,7 +14,7 @@ public class Account {
         super();
     }
 
-    public Account(String id, String deposit, String gmtCreate, String gmtModified) {
+    public Account(String id, Double deposit, String gmtCreate, String gmtModified) {
         super();
         this.id = id;
         this.deposit = deposit;
@@ -30,11 +30,11 @@ public class Account {
         this.id = id;
     }
 
-    public String getDeposit() {
+    public Double getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(String deposit) {
+    public void setDeposit(Double deposit) {
         this.deposit = deposit;
     }
 

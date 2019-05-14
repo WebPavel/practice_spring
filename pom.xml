@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>practice1_spring</module>
+        <module>practice2_spring</module>
     </modules>
 
     <dependencies>
