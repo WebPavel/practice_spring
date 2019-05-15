@@ -16,4 +16,17 @@ public class CustomerServiceTest {
         CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
         System.out.println(customerService);
     }
+    @Test
+    public void testWithoutProxy() {
+        CustomerService customerService = new CustomerService();
+        customerService.printOrdersForCustomer();
+        customerService.delete();
+    }
+    @Test
+    public void testCGlib() {
+        CustomerService customerService = new CustomerService();
+        CustomerService proxy = new CGlibProxy(customerService).createProxy();
+        proxy.printOrdersForCustomer();
+        proxy.delete();
+    }
 }

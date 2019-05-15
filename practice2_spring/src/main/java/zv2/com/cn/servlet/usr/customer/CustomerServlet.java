@@ -26,13 +26,13 @@ public class CustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 //        CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
-//        System.out.println(customerService.printOrdersForCustomer());
-
+//        customerService.printOrdersForCustomer();
+//
 //        WebApplicationContext applicationContext = (WebApplicationContext) getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 //        CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
-//        System.out.println(customerService.printOrdersForCustomer());
+//        customerService.printOrdersForCustomer();
         WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
-        System.out.println(customerService.printOrdersForCustomer());
+        customerService.printOrdersForCustomer();
     }
 }

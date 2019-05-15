@@ -55,6 +55,17 @@
             <artifactId>spring-webmvc</artifactId>
             <version>3.2.0.RELEASE</version>
         </dependency>
+        <!--AOP联盟提出的规范-->
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.5.3</version>
+        </dependency>
 
     </dependencies>
 

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import zv2.com.cn.dao.biz.order.OrderDao;
 import zv2.com.cn.dao.usr.customer.CustomerDao;
 
+import java.util.Date;
+
 /**
  * @author lb
  * @date 2019/5/14
@@ -23,8 +25,12 @@ public class CustomerService {
         this.orderDao = orderDao;
     }
 
-    public String printOrdersForCustomer() {
-        return "亲，您暂时没有订单";
+    public void printOrdersForCustomer() {
+        System.out.println("亲，您暂时没有订单");
+    }
+
+    public void delete() {
+        System.out.println("delete customer..." + new Date());
     }
 
     @Override

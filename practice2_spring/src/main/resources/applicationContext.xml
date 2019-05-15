@@ -11,4 +11,41 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="customerService" class="zv2.com.cn.service.usr.customer.CustomerService">
         <property name="customerDao" ref="customerDao"></property>
     </bean>
+    <!--增强orderService-->
+    <bean id="orderService" class="zv2.com.cn.service.biz.order.impl.OrderServiceImpl"></bean>
+    <bean id="customBeforeAdvice" class="zv2.com.cn.service.biz.order.CustomBeforeAdvice"></bean>
+    <!--配置代理类-->
+    <bean id="orderServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--设置目标对象-->
+        <property name="target" ref="orderService"></property>
+        <!--设置实现的接口-->
+        <property name="proxyInterfaces" value="zv2.com.cn.service.biz.order.OrderService"></property>
+        <!--设置advice-->
+        <property name="interceptorNames" value="customBeforeAdvice"></property>
+    </bean>
+
+
+    <!--配置带有切点的切面-->
+    <bean id="orderPvService" class="zv2.com.cn.service.cmp.orderpv.OrderPvService"></bean>
+    <bean id="customAroundAdvice" class="zv2.com.cn.service.cmp.orderpv.CustomAroundAdvice"></bean>
+    <!--定义切点切面-->
+    <bean id="pointcutAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <!--定义表达式，限定拦截哪些方法-->
+        <!--正则中.表示任意字符，*表示任意个-->
+        <!--表示所有-->
+        <!--<property name="pattern" value=".*"></property>-->
+        <!--<property name="pattern" value="zv2\.com\.cn\.service\.cmp\.orderpv\.OrderPvService\.dailySales.*"></property>-->
+        <!--方法名含有dailySales的方法-->
+        <!--<property name="pattern" value=".*dailySales.*"></property>-->
+        <property name="patterns" value=".*dailySales.*,.*monthlySales.*"></property>
+        <!--应用增强-->
+        <property name="advice" ref="customAroundAdvice"></property>
+    </bean>
+    <bean id="orderPvServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="orderPvService"></property>
+        <!--针对不实现接口的类-->
+        <property name="proxyTargetClass" value="true"></property>
+        <!--在目标对象上应用增强-->
+        <property name="interceptorNames" value="pointcutAdvisor"></property>
+    </bean>
 </beans>

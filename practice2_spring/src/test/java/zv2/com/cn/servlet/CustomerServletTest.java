@@ -19,6 +19,6 @@ public class CustomerServletTest {
     private CustomerService customerService;
     @Test
     public void test() {
-        System.out.println(customerService.printOrdersForCustomer());
+        customerService.printOrdersForCustomer();
     }
 }
