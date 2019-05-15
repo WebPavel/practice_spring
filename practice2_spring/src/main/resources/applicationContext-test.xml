@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="orderService" class="zv2.com.cn.service.biz.order.impl.OrderServiceImpl"></bean>
+    <bean id="orderPvService" class="zv2.com.cn.service.cmp.orderpv.OrderPvService"></bean>
+    <bean id="customBeforeAdvice" class="zv2.com.cn.service.biz.order.CustomBeforeAdvice"></bean>
+    <bean id="customAroundAdvice" class="zv2.com.cn.service.cmp.orderpv.CustomAroundAdvice"></bean>
+    <!--自动代理是基于后处理bean来生成代理类，后处理bean无须配置id-->
+    <!--自动代理：按名称代理-->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <!---->
+        <property name="beanNames" value="*Service"></property>
+        <property name="interceptorNames" value="customAroundAdvice"></property>
+    </bean>
+</beans>
