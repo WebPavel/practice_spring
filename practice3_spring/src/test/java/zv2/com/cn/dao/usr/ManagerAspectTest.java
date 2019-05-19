@@ -6,25 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import zv2.com.cn.dao.usr.employee.EmployeeDao;
+import zv2.com.cn.dao.usr.manager.ManagerDao;
 
 /**
  * @author lb
  * @date 2019/5/16
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = "classpath:applicationContext.xml")
-public class EmployeeAspectTest {
+@ContextConfiguration(value = "classpath:applicationContext-peer1.xml")
+public class ManagerAspectTest {
 
     @Autowired
-    @Qualifier("employeeDao")
-    private EmployeeDao employeeDao;
+    @Qualifier("managerDao")
+    private ManagerDao managerDao;
 
     @Test
-    public void testAspect() {
-        employeeDao.add(null);
-        employeeDao.update(null);
-        employeeDao.delete(null);
-        employeeDao.find();
+    public void testAspectXML() {
+        managerDao.add();
+        managerDao.update();
+        managerDao.delete();
+        managerDao.find();
     }
 }
