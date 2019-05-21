@@ -12,6 +12,7 @@
         <module>practice1_spring</module>
         <module>practice2_spring</module>
         <module>practice3_spring</module>
+        <module>practice4_spring</module>
     </modules>
 
     <dependencies>
@@ -34,6 +35,11 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>3.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -79,6 +85,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
             <version>3.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

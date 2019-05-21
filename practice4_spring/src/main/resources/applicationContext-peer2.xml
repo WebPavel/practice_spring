@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="accountDao" class="zv2.com.cn.dao.impl.biz.account.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="accountService" class="zv2.com.cn.service.impl.biz.account.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--生成代理对象-->
+    <bean id="accountServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="target" ref="accountService"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <!--设置事务属性-->
+        <property name="transactionAttributes">
+            <props>
+                <!--prop属性值-->
+                <!--传播行为、隔离级别、事务是否只读、发生哪些异常进行事务回滚（默认所有异常都回滚）、发生哪些异常不进行事务回滚-->
+                <!--<prop key="transfer">PROPAGATION_REQUIRED,readOnly</prop>-->
+                <prop key="transfer">PROPAGATION_REQUIRED,+java.lang.ArithmeticException</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

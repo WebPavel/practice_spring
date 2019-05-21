@@ -14,6 +14,7 @@ import java.util.List;
  * @date 2019/5/16
  */
 public class EmployeeDao extends JdbcDaoSupport {
+//    JdbcDaoSupport自身注入了JdbcTemplate
 //    private JdbcTemplate jdbcTemplate;
 //
 //    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -57,6 +58,7 @@ public class EmployeeDao extends JdbcDaoSupport {
         String sql = "select * from usr_employee";
         return getJdbcTemplate().query(sql, new EmployeeRowMapper());
     }
+    /** 封装结果集 */
     private class EmployeeRowMapper implements RowMapper<Employee> {
         @Override
         public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
