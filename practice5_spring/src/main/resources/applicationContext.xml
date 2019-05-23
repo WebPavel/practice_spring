@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <!--将连接池交由LocalSessionFactoryBean管理-->
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <!--配置方言-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <!--数据库没有表的时候创建表；表已创建则更新表结构，最后更新表数据-->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!--使用C3P0连接池-->
+                <prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+                <prop key="c3p0.min_size">5</prop>
+                <prop key="c3p0.max_size">20</prop>
+                <prop key="c3p0.timeout">120</prop>
+                <prop key="c3p0.idle_test_period">3000</prop>
+                <!--MySQL默认隔离级别4，可重复读，避免了脏读和不可重复读，会发生虚读-->
+                <prop key="hibernate.connection.isolation">4</prop>
+                <!--启用当前线程绑定的session-->
+                <prop key="current_session_context_class">thread</prop>
+                <!--开启二级缓存-->
+                <prop key="cache.use_second_level_cache">true</prop>
+                <!--配置二级缓存提供商-->
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+                <!--开启查询缓存（相当于开启三级缓存，对对象属性进行缓存）-->
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+            </props>
+        </property>
+        <!--加载映射文件-->
+        <!--<property name="mappingResources">-->
+            <!--<list>-->
+                <!--<value>zv2/com/cn/entity/biz/book/Book.hbm.xml</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--映射文件所在文件夹路径-->
+        <property name="mappingDirectoryLocations">
+            <list>
+                <value>classpath:zv2/com/cn/entity</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="bookAction" class="zv2.com.cn.action.biz.book.BookAction" scope="prototype">
+        <property name="bookService" ref="bookService"/>
+    </bean>
+    <bean id="bookService" class="zv2.com.cn.service.biz.book.BookService">
+        <property name="bookDao" ref="bookDao"/>
+    </bean>
+    <bean id="bookDao" class="zv2.com.cn.dao.biz.book.BookDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--事务管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
