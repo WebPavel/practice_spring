@@ -14,6 +14,7 @@
         <module>practice3_spring</module>
         <module>practice4_spring</module>
         <module>practice5_spring</module>
+        <module>practice6_spring</module>
     </modules>
 
     <dependencies>
