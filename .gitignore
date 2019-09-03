@@ -215,3 +215,11 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# practice2_spring/src/main/java/zv2/com/cn/entity/
+# practice2_spring/src/main/java/zv2/com/cn/listener/
+practice1_spring/practice1_spring.iml
+practice2_spring/practice2_spring.iml
+practice3_spring/practice3_spring.iml
+practice4_spring/practice4_spring.iml
+practice5_spring/practice5_spring.iml
+practice6_spring/practice6_spring.iml
